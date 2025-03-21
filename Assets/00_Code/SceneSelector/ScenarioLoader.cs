@@ -17,14 +17,15 @@ namespace DeZijlen.SceneSelector
 
     public class ScenarioLoader : MonoBehaviour
     {
-        [SerializeField, Tooltip("CanvasGroup is needed to handle transitions.")] private CanvasGroup canvasGroup;
+        [SerializeField] private Image image;
         [SerializeField] private LevelContainer levelContainer;
 
-        [SerializeField] private Transform parent;
+        [SerializeField, Tooltip("The position that the image is connected to.")] private Transform parent;
         [SerializeField] private Button levelSelectorButtonPrefab;
 
         public static ScenarioLoader Instance { get; private set; }
 
+        // Singleton instance
         private void Awake()
         {
             if (Instance != this && Instance != null)
@@ -39,25 +40,25 @@ namespace DeZijlen.SceneSelector
 
         private void Start()
         {
-            foreach(var info in levelContainer.buttonInfo)
+            PopulateButtons();
+        }
+
+        // Gets the GameObject with the "UI_Parent" tag and sets it as parent. Then creates buttons on the location of the parent.
+        private void PopulateButtons()
+        {
+            GameObject parentObject = GameObject.FindGameObjectWithTag("UI_Parent");
+
+            if (parentObject != null)
+                parent = parentObject.transform;
+            else
+                Debug.LogError("GRRR");
+
+            foreach (var info in levelContainer.buttonInfo)
             {
                 Button button = Instantiate(levelSelectorButtonPrefab, parent);
                 button.name = info.scene.name;
                 button.GetComponentInChildren<Text>().text = info.scene.name;
                 button.onClick.AddListener(() => LoadScene(info.scene.name, 1f, TransitionIn.FadeIn, TransitionOut.FadeOut));
-            }
-        }
-
-        private void LateUpdate()
-        {
-            if (parent == null)
-            {
-                GameObject parentObject = GameObject.FindGameObjectWithTag("UI_Parent");
-
-                if (parentObject != null)
-                    parent.position = parentObject.transform.position;
-                else
-                    Debug.LogError("GRRR");
             }
         }
 
@@ -90,42 +91,49 @@ namespace DeZijlen.SceneSelector
 
             yield return SceneManager.LoadSceneAsync(sceneName);
 
+            PopulateButtons();
+
             yield return transIn switch
             {
                 TransitionIn.FadeIn => FadeIn(duration)
             };
+
         }
 
         private IEnumerator FadeIn(float duration)
         {
-            canvasGroup.gameObject.SetActive(true);
-            canvasGroup.alpha = 1;
+            image.gameObject.SetActive(true);
+            Color color = image.color;
+            color.a = 1f; 
+            image.color = color;
 
             // Makes the screen fade in from black.
             float time = 0;
             while (time < duration)
             {
                 time += Time.deltaTime;
-                canvasGroup.alpha = 1- (time/duration);
+                color.a = Mathf.Lerp(1f, 0f, time / duration);
+                image.color = color;
                 yield return null;
             }
-            canvasGroup.gameObject.SetActive(false);
         }
 
         private IEnumerator FadeOut(float duration)
         {
-            canvasGroup.gameObject.SetActive(true);
-            canvasGroup.alpha = 0;
+            image.gameObject.SetActive(true);
+            Color color = image.color;
+            color.a = 0f;
+            image.color = color;
 
-            // Makes the screen fade in to black.
+            // Makes the screen fade out from black.
             float time = 0;
             while(time < duration)
             {
                 time += Time.deltaTime;
-                canvasGroup.alpha = time/duration;
+                color.a = Mathf.Lerp(0f, 1f, time / duration);
+                image.color = color;
                 yield return null;
             }
-            canvasGroup.gameObject.SetActive(false);
         }
     }
 }

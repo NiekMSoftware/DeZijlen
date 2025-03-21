@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 5abf760df47919f44ae06df30e369121, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -4768,7 +4768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a4a2ceff871194099be285271004e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 1757091131}
+  image: {fileID: 1720517974}
   levelContainer: {fileID: 11400000, guid: fca63398134279f48903f8401c1dcd0a, type: 2}
   parent: {fileID: 1825803100}
   levelSelectorButtonPrefab: {fileID: 6748534834565277223, guid: 5e3ce317204e85e4fbe37891862f6b04, type: 3}
@@ -8460,7 +8460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1720517973
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8626,7 +8626,6 @@ GameObject:
   - component: {fileID: 1757091130}
   - component: {fileID: 1757091129}
   - component: {fileID: 1757091128}
-  - component: {fileID: 1757091131}
   - component: {fileID: 1757091132}
   m_Layer: 0
   m_Name: Fade
@@ -8634,7 +8633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1757091127
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8642,8 +8641,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757091126}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8652,8 +8651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.36144}
-  m_SizeDelta: {x: 5, y: 5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1757091128
 MonoBehaviour:
@@ -8718,18 +8717,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2000
   m_TargetDisplay: 0
---- !u!225 &1757091131
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757091126}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &1757091132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8743,6 +8730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1275353938}
+  distanceFromPlayer: 0.1
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1780908631
 GameObject:
   m_ObjectHideFlags: 0
